@@ -1,0 +1,89 @@
+<!-- news/templates/news/lotto.html -->
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyniki Dużego Lotka</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .draw-info, .numbers {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .numbers {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ostatnie Wyniki Dużego Lotka</h1>
+
+    <div class="draw-info">
+        <p>Data ostatniego losowania: <strong>{{ draw_date }}</strong></p>
+    </div>
+
+    <div class="numbers">
+        <p>Numery: {{ draw_numbers|join:", " }}</p>
+        <p>Od ostatniego losowania minęło: {{ draw_date|timesince:now }}</p>
+    </div>
+
+    <h2>Łączna liczba wszystkich losowań</h2>
+    <p><strong>{{ total_draws }}</strong></p>
+
+    <h2>Statystyki losowanych liczb</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Liczba</th>
+                <th>Wylosowana</th>
+                <th>% Udział</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stat in stats %}
+            <tr>
+                <td>{{ stat.number }}</td>
+                <td>{{ stat.count }}</td>
+                <td>{{ stat.percentage|floatformat:2 }}%</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
