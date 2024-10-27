@@ -5,7 +5,7 @@
 
 
 {% block content %}
-  <h1>Current Weather in Poznan</h1>
+  <h1>Current Weather in {{ weather.area }}</h1>
     <p>Observed At: {{ weather.observed_at }}</p>
     <p>Temperature: {{ weather.temperature }}°C</p>
     <p>Pressure: {{ weather.pressure }} hPa</p>
