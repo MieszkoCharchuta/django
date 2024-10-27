@@ -28,6 +28,7 @@
         <option value="$MODULE_DIR$/myapp/templates" />
         <option value="$MODULE_DIR$/blog/templates" />
         <option value="$MODULE_DIR$/news/templates" />
+        <option value="$MODULE_DIR$/weather/templates" />
       </list>
     </option>
   </component>

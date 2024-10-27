@@ -23,4 +23,6 @@ urlpatterns = [
     path('', include('myapp.urls')),
     path('news/', include('news.urls')),
     path('blog/', include('blog.urls')),
+    path('weather/', include('weather.urls')),
+
 ]
