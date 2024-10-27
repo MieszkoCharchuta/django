@@ -9,6 +9,8 @@ SOURCES = [
 	{'id': 'London', 'name': 'London'},
     {'id': 'Milan', 'name': 'Milan'},
     {'id': 'Berlin', 'name': 'Berlin'},
+    {'id': 'Paris', 'name': 'Paris'},
+    {'id': 'Madrid', 'name': 'Madrid'},
 ]
 
 def index_view(request, source='Poznan'):
