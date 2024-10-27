@@ -1,11 +1,18 @@
 {% extends 'myapp/base.html' %}
     
 {% block page_title %}Weather{% endblock %} 
-{% block nav-link-contact %}active{% endblock %}
+{% block nav-link-weather %}active{% endblock %}
 
 
 {% block content %}
   <h1>Current Weather in {{ weather.area }}</h1>
+    {%  for source in sources %}
+        {% if source.id == active_source %}
+            {{ source.name }} |
+        {%  else %}
+            <a href="{%  url 'weather:index' source.id %}">{{ source.name }}</a> |
+        {% endif %}
+    {% endfor %}
     <p>Observed At: {{ weather.observed_at }}</p>
     <p>Temperature: {{ weather.temperature }}°C</p>
     <p>Pressure: {{ weather.pressure }} hPa</p>

@@ -5,6 +5,12 @@ from django.shortcuts import render
 from .models import WeatherCondition
 from datetime import datetime
 
+SOURCES = [
+	{'id': 'London', 'name': 'London'},
+    {'id': 'Milan', 'name': 'Milan'},
+    {'id': 'Berlin', 'name': 'Berlin'},
+]
+
 def index_view(request, source='Poznan'):
     url = f"https://wttr.in/{source}?format=j1"
     response = requests.get(url)
@@ -20,7 +26,9 @@ def index_view(request, source='Poznan'):
     )
     # Standardized context setup (because I could not get it to work with bootstrapped base.html extensions
     context = {
-        'weather': weather_condition  # Makes `weather` variable available in the template
+        'weather': weather_condition,  # Makes `weather` variable available in the template
+        'sources': SOURCES,
+        'active_source': source,
     }
-    return render(request, 'weather/weather.html', context)
+    return render(request, 'weather/index.html', context)
 
