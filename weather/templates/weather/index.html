@@ -1,34 +1,62 @@
 {% extends 'myapp/base.html' %}
 
-{% block page_title %}Weather{% endblock %} 
+{% block page_title %}Weather{% endblock %}
 {% block nav-link-weather %}active{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="text-center">Current Weather in {{ area_name }}</h1>
     
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Weather Information</h5>
-                    <p class="card-text"><strong>Observed At:</strong> {{ weather.observed_at }}</p>
-                    <p class="card-text"><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
-                    <p class="card-text"><strong>Pressure:</strong> {{ weather.pressure }} hPa</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<h1 class="mb-2">Weather</h1>
 
-    <div class="text-center mt-3">
-        <h6>Weather Sources</h6>
-        {% for source in sources %}
-            {% if source.id == active_source %}
-                <span class="badge bg-primary">{{ source.name }}</span> |
-            {% else %}
-                <a class="badge bg-secondary" href="{% url 'weather:index' source.id %}">{{ source.name }}</a> |
-            {% endif %}
-        {% endfor %}
-    </div>
+<!-- City menu -->
+<div class="mb-4">
+{% for city in cities %}
+   {% if city != active_city %}
+    <a href="{% url 'weather:index' city %}">{{ city }}</a> 
+    {% else %}
+    {{ city }}
+    {% endif %}
+    |
+{% endfor %}
 </div>
+<!-- /City menu -->
+
+{% if data.current_condition %}
+
+<p>This weather was observed on {{ data.current_condition.0.localObsDateTime }}
+({{ date|timesince }} ago).</p>
+
+<!-- Weather parameters -->
+<ul class="list-group">
+  <li class="list-group-item">Description:
+      {% for desc in data.current_condition.0.weatherDesc %}
+    <b>{{ desc.value }}</b>
+  {% endfor %}
+  </li>
+  <li class="list-group-item">Temperature:
+    <b>{{ data.current_condition.0.temp_C }}°C</b>
+  </li>
+  <li class="list-group-item">Feels like:
+    <b>{{ data.current_condition.0.FeelsLikeC }}°C</b>
+  </li>
+  <li class="list-group-item">Pressure:
+    <b>{{ data.current_condition.0.pressure }} hPa</b>
+  </li>
+  <li class="list-group-item">Wind speed
+    <b>{{ data.current_condition.0.windspeedKmph }} km/h</b>
+  </li>
+  <li class="list-group-item">Humidity:
+    <b>{{ data.current_condition.0.humidity }}</b>
+  </li>
+  <li class="list-group-item">UV Index:
+    <b>{{ data.current_condition.0.uvIndex }}</b>
+  </li>
+</ul>
+<!-- /Weather parameters -->
+
+{% else %}
+<div class="alert alert-danger" role="alert">
+   Sorry, something went wrong.
+</div>
+{% endif %}
+
 {% endblock %}
