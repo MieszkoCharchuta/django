@@ -1,15 +1,26 @@
 {% extends 'myapp/base.html' %}
     
 {% block page_title %}Blog{% endblock %} 
-{% block nav-link-contact %}active{% endblock %}
+{% block nav-link-blog %}active{% endblock %}
 
 
 {% block content %}
   <h1>Blog</h1>
-    {% for post in objects %}
-        <p>{{ post.title }}</p>
-        <p>{{ post.body }}</p>
-        <p>{{ post.date_create }}</p>
+    <a href="{% url 'blog:post_list_view'  %}" >All</a> |  
+    {%  for category in category_list %}
+        <a href="{% url 'blog:post_list_category' category.name %}">
+            {{ category.name }}</a> |
+    {% endfor %}
+    <br><br>
+    
+    <div class="alert alert-info" role="alert">
+        Showing <strong> {{ object_list|length }} </strong>post
+    </div>
+    
+    <p>This is blog page.</p>
+    {% for post in object_list %}
+        <a href="{% url 'blog:post_detail_view' post.id %}"><h2>{{ post.title|title }}</h2></a>
+        <p>{{ post.body}}</p>
     {% endfor  %}
 
 {% endblock %}

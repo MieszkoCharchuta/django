@@ -1,0 +1,11 @@
+{% extends 'myapp/base.html' %}
+
+{% block page_title %}Blog{% endblock %}
+{% block nav-link-blog %}active{% endblock %}
+
+{% block content %}
+  <h1>Blog</h1>
+    <h3>{{ object.title }}</h3
+    <p>{{ object.body }}</p>
+    <p>{{ object.date_update|timesince }} ago</p>
+{% endblock %}
