@@ -1,26 +1,48 @@
 {% extends 'myapp/base.html' %}
-    
-{% block page_title %}Blog{% endblock %} 
-{% block nav-link-blog %}active{% endblock %}
 
+{% block page_title %}Blog{% endblock %}
+{% block nav-link-blog %}active{% endblock %}
 
 {% block content %}
   <h1>Blog</h1>
-    <a href="{% url 'blog:post_list_view'  %}" >All</a> |  
-    {%  for category in category_list %}
-        <a href="{% url 'blog:post_list_category' category.name %}">
-            {{ category.name }}</a> |
+
+  <!-- Category Links -->
+  <a href="{% url 'blog:post_list_view' %}">All</a> |
+  {% for category in category_list %}
+    <a href="{% url 'blog:post_list_category' category.name %}">
+      {{ category.name }}
+    </a> |
+  {% endfor %}
+  <br><br>
+
+  <!-- Post Count Alert -->
+  <div class="alert alert-info" role="alert">
+    Showing <strong>{{ object_list|length }}</strong> posts.
+  </div>
+
+  <!-- Posts List -->
+  <ul>
+    {% for obj in object_list %}
+      <li>
+        <h3>
+          <a href="{% url 'blog:post_detail_view' obj.id %}">{{ obj.title|title }}</a>
+        </h3>
+        <p>{{ obj.body|truncatewords:2 }}</p>
+        <p>{{ obj.date_create }} ({{ obj.date_create|timesince }} ago)</p>
+      </li>
+    {% empty %}
+      <!-- Fancy "No posts to show" Message -->
+      <li>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+            <use xlink:href="#exclamation-triangle-fill" />
+          </svg>
+          <div>
+            <em>No posts to show at the moment. Check back soon!</em>
+          </div>
+        </div>
+      </li>
     {% endfor %}
-    <br><br>
-    
-    <div class="alert alert-info" role="alert">
-        Showing <strong> {{ object_list|length }} </strong>post
-    </div>
-    
-    <p>This is blog page.</p>
-    {% for post in object_list %}
-        <a href="{% url 'blog:post_detail_view' post.id %}"><h2>{{ post.title|title }}</h2></a>
-        <p>{{ post.body}}</p>
-    {% endfor  %}
+  </ul>
 
 {% endblock %}
