@@ -6,7 +6,6 @@ from .models import Post, Category
 
 # Create your views here.
 def post_list_view(request, category_name=None):
-    print("lalalal")
     if category_name:
         queryset = Post.objects.filter(category__name=category_name)
     else:

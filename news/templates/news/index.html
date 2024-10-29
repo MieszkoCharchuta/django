@@ -1,39 +1,40 @@
 {% extends 'myapp/base.html' %}
-    
-{% block page_title %}News{% endblock %} 
+
+{% block page_title %}News{% endblock %}
 {% block nav-link-news %}active{% endblock %}
 
 {% block content %}
-  <h1>News</h1>
-    {%  for source in sources %}
+    <h1>News</h1>
+    {% for source in sources %}
         {% if source.id == active_source %}
             {{ source.name }} |
-        {%  else %}
-            <a href="{%  url 'news:index' source.id %}">{{ source.name }}</a> |
+        {% else %}
+            <a href="{% url 'news:index' source.id %}">{{ source.name }}</a> |
         {% endif %}
     {% endfor %}
 
     {% if newsapi.status == 'ok' %}
         <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for article in newsapi.articles %}
+            {% for article in newsapi.articles %}
                 <!-- Article -->
-  <div class="col">
-    <div class="card h-100">
-      <img src="{{  article.urlToImage }}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-          <a href="{{article.url}}" target="_blank">{{ article.title }}</a>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-body-secondary">Last updated 3 mins ago</small>
-      </div>
-    </div>
-  </div>
-    {% endfor %}
-    </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ article.urlToImage }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This content is a little bit longer.</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
         <p>Something went wrong</p>
-    {%  endif %}
-  
+    {% endif %}
+
 {% endblock %}

@@ -4,59 +4,59 @@
 {% block nav-link-weather %}active{% endblock %}
 
 {% block content %}
-    
-<h1 class="mb-2">Weather</h1>
 
-<!-- City menu -->
-<div class="mb-4">
-{% for city in cities %}
-   {% if city != active_city %}
-    <a href="{% url 'weather:index' city %}">{{ city }}</a> 
+    <h1 class="mb-2">Weather</h1>
+
+    <!-- City menu -->
+    <div class="mb-4">
+        {% for city in cities %}
+            {% if city != active_city %}
+                <a href="{% url 'weather:index' city %}">{{ city }}</a>
+            {% else %}
+                {{ city }}
+            {% endif %}
+            |
+        {% endfor %}
+    </div>
+    <!-- /City menu -->
+
+    {% if data.current_condition %}
+
+        <p>This weather was observed on {{ data.current_condition.0.localObsDateTime }}
+            ({{ date|timesince }} ago).</p>
+
+        <!-- Weather parameters -->
+        <ul class="list-group">
+            <li class="list-group-item">Description:
+                {% for desc in data.current_condition.0.weatherDesc %}
+                    <b>{{ desc.value }}</b>
+                {% endfor %}
+            </li>
+            <li class="list-group-item">Temperature:
+                <b>{{ data.current_condition.0.temp_C }}°C</b>
+            </li>
+            <li class="list-group-item">Feels like:
+                <b>{{ data.current_condition.0.FeelsLikeC }}°C</b>
+            </li>
+            <li class="list-group-item">Pressure:
+                <b>{{ data.current_condition.0.pressure }} hPa</b>
+            </li>
+            <li class="list-group-item">Wind speed
+                <b>{{ data.current_condition.0.windspeedKmph }} km/h</b>
+            </li>
+            <li class="list-group-item">Humidity:
+                <b>{{ data.current_condition.0.humidity }}</b>
+            </li>
+            <li class="list-group-item">UV Index:
+                <b>{{ data.current_condition.0.uvIndex }}</b>
+            </li>
+        </ul>
+        <!-- /Weather parameters -->
+
     {% else %}
-    {{ city }}
+        <div class="alert alert-danger" role="alert">
+            Sorry, something went wrong.
+        </div>
     {% endif %}
-    |
-{% endfor %}
-</div>
-<!-- /City menu -->
-
-{% if data.current_condition %}
-
-<p>This weather was observed on {{ data.current_condition.0.localObsDateTime }}
-({{ date|timesince }} ago).</p>
-
-<!-- Weather parameters -->
-<ul class="list-group">
-  <li class="list-group-item">Description:
-      {% for desc in data.current_condition.0.weatherDesc %}
-    <b>{{ desc.value }}</b>
-  {% endfor %}
-  </li>
-  <li class="list-group-item">Temperature:
-    <b>{{ data.current_condition.0.temp_C }}°C</b>
-  </li>
-  <li class="list-group-item">Feels like:
-    <b>{{ data.current_condition.0.FeelsLikeC }}°C</b>
-  </li>
-  <li class="list-group-item">Pressure:
-    <b>{{ data.current_condition.0.pressure }} hPa</b>
-  </li>
-  <li class="list-group-item">Wind speed
-    <b>{{ data.current_condition.0.windspeedKmph }} km/h</b>
-  </li>
-  <li class="list-group-item">Humidity:
-    <b>{{ data.current_condition.0.humidity }}</b>
-  </li>
-  <li class="list-group-item">UV Index:
-    <b>{{ data.current_condition.0.uvIndex }}</b>
-  </li>
-</ul>
-<!-- /Weather parameters -->
-
-{% else %}
-<div class="alert alert-danger" role="alert">
-   Sorry, something went wrong.
-</div>
-{% endif %}
 
 {% endblock %}
