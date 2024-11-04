@@ -15,6 +15,12 @@
   {% endfor %}
   <br><br>
 
+  {% if author %}
+    <div class="alert alert-info" role="alert">
+      Showing posts by <strong>{{ author.name }}</strong>.
+    </div>
+  {% endif %}
+
   <!-- Post Count Alert -->
   <div class="alert alert-info" role="alert">
     Showing <strong>{{ object_list|length }}</strong> posts.
@@ -27,6 +33,11 @@
         <h3>
           <a href="{% url 'blog:post_detail_view' obj.id %}">{{ obj.title|title }}</a>
         </h3>
+        {% if obj.author %}
+          <p>By {% if obj.author %}<a href="{% url 'blog:posts_by_author' obj.author.id %}">{{ obj.author.name }}</a>{% else %}Unknown Author{% endif %}</p>
+        {% else %}
+          <p><em>Author unknown</em></p>
+        {% endif %}
         <p>{{ obj.body|truncatewords:2 }}</p>
         <p>Created: {{ obj.date_create }} ({{ obj.date_create|timesince }} ago)</p>
         <p>Published: {{ obj.date_publish }}</p>
