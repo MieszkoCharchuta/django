@@ -1,7 +1,6 @@
-# blog/views.py
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Category, Author
-
 
 # View for listing posts, with optional category and author filtering
 def post_list_view(request, category_name=None, author_id=None):
@@ -14,13 +13,17 @@ def post_list_view(request, category_name=None, author_id=None):
 
     queryset = queryset.order_by('-date_publish')
 
+    # Pagination
+    paginator = Paginator(queryset, 3)  # Show 3 posts per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'object_list': queryset,
+        'object_list': page_obj,
         'category_list': Category.objects.all(),
         'author': get_object_or_404(Author, id=author_id) if author_id else None,
     }
     return render(request, 'blog/post_list.html', context)
-
 
 # Detailed view of a post
 def post_detail_view(request, post_id):

@@ -9,9 +9,7 @@
   <!-- Category Links -->
   <a href="{% url 'blog:post_list_view' %}">All</a> |
   {% for category in category_list %}
-    <a href="{% url 'blog:post_list_category' category.name %}">
-      {{ category.name }}
-    </a> |
+    <a href="{% url 'blog:post_list_category' category.name %}">{{ category.name }}</a> |
   {% endfor %}
   <br><br>
 
@@ -34,7 +32,7 @@
           <a href="{% url 'blog:post_detail_view' obj.id %}">{{ obj.title|title }}</a>
         </h3>
         {% if obj.author %}
-          <p>By {% if obj.author %}<a href="{% url 'blog:posts_by_author' obj.author.id %}">{{ obj.author.name }}</a>{% else %}Unknown Author{% endif %}</p>
+          <p>By <a href="{% url 'blog:posts_by_author' obj.author.id %}">{{ obj.author.name }}</a></p>
         {% else %}
           <p><em>Author unknown</em></p>
         {% endif %}
@@ -56,5 +54,24 @@
       </li>
     {% endfor %}
   </ul>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <span class="step-links">
+      {% if object_list.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ object_list.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+      </span>
+
+      {% if object_list.has_next %}
+        <a href="?page={{ object_list.next_page_number }}">next</a>
+        <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
 
 {% endblock %}
