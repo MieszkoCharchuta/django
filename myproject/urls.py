@@ -24,5 +24,6 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('blog/', include('blog.urls')),
     path('weather/', include('weather.urls')),
+    path('biotools/', include('biotools.urls', namespace='biotools')),
 
 ]

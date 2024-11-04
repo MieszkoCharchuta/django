@@ -30,6 +30,7 @@
         <option value="$MODULE_DIR$/blog/templates" />
         <option value="$MODULE_DIR$/news/templates" />
         <option value="$MODULE_DIR$/weather/templates" />
+        <option value="$MODULE_DIR$/biotools/templates" />
       </list>
     </option>
   </component>

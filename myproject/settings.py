@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'news',
     'blog',
     'weather',
+    'biotools',
 ]
 
 MIDDLEWARE = [
