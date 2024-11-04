@@ -20,7 +20,7 @@ class Author(models.Model):
 
 class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)  # New field for author
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=140)
     body = models.TextField()
     date_create = models.DateTimeField(auto_now_add=True)

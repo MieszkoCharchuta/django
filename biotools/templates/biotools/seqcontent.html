@@ -1,9 +1,22 @@
 {% extends 'myapp/base.html' %}
 
 {% block page_title %}Sequence Content{% endblock %}
+{% block nav-link-tools %}active{% endblock %}
 {% block nav-link-seqcontent %}active{% endblock %}
 
+
 {% block content %}
-  <h1>Sequence </h1>
-    <!-- Form will be added here in future tasks -->
+  <h1>Tools <small>Seqcontent</small> </h1>
+    
+    {% if results %}
+        {% for k, v in results.items %}
+        <p>{{ k }} - {{ v }}</p>
+        {% endfor %}
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">Calculate</button>
+        </form>
+    {% endif %}
 {% endblock %}
