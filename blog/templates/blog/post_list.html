@@ -28,7 +28,8 @@
           <a href="{% url 'blog:post_detail_view' obj.id %}">{{ obj.title|title }}</a>
         </h3>
         <p>{{ obj.body|truncatewords:2 }}</p>
-        <p>{{ obj.date_create }} ({{ obj.date_create|timesince }} ago)</p>
+        <p>Created: {{ obj.date_create }} ({{ obj.date_create|timesince }} ago)</p>
+        <p>Published: {{ obj.date_publish }}</p>
       </li>
     {% empty %}
       <!-- Fancy "No posts to show" Message -->

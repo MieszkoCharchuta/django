@@ -9,7 +9,8 @@ def post_list_view(request, category_name=None):
     if category_name:
         queryset = Post.objects.filter(category__name=category_name)
     else:
-        queryset = Post.objects.all()
+        queryset = Post.objects.filter(is_public=True)
+        queryset = queryset.order_by('-date_publish')
     context = {
         'object_list': queryset,
         'category_list': Category.objects.all(),
