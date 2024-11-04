@@ -6,7 +6,7 @@
 {% block content %}
   <h1>Blog</h1>
     <h2>{{ object.title }}</h2>
-    <p><strong>Author:</strong> {{ post.author.name }}</p>
+    <p><strong>Author:</strong> {{ author.name }}</p>
     <p>{{ object.body }}</p>
     <p>{{ object.date_update|timesince }} ago</p>
 {% endblock %}
