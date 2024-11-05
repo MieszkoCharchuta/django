@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <title>My project | {% block page_title %}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -24,43 +24,76 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <!-- Home Link -->
                     <li class="nav-item">
                         <a class="nav-link {% block nav-link-home %}{% endblock %}" aria-current="page"
                            href="{% url 'myapp:home' %}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% block nav-link-news %}{% endblock %}" aria-current="page"
-                           href="{% url 'news:index' %}">News</a>
+                    
+                    <!-- News Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% block nav-link-news %}{% endblock %}" href="#"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            News
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item {% block nav-item-articles %}{% endblock %}"
+                                   href="{% url 'news:index' %}">Articles</a></li>
+                            <li><a class="dropdown-item {% block nav-item-lotto %}{% endblock %}"
+                                   href="{% url 'news:lotto' %}">Lotto</a></li>
+                        </ul>
                     </li>
+                    
+                    <!-- About Link -->
                     <li class="nav-item">
                         <a class="nav-link {% block nav-link-about %}{% endblock %}" aria-current="page"
                            href="{% url 'myapp:about' %}">About</a>
                     </li>
+                    
+                    <!-- Blog Link -->
                     <li class="nav-item">
                         <a class="nav-link {% block nav-link-blog %}{% endblock %}" aria-current="page"
                            href="{% url 'blog:post_list_view' %}">Blog</a>
                     </li>
+                    
+                    <!-- Contact Link -->
                     <li class="nav-item">
                         <a class="nav-link {% block nav-link-contact %}{% endblock %}" aria-current="page"
                            href="{% url 'myapp:contact' %}">Contact</a>
                     </li>
+                    
+                    <!-- Genbank Link -->
                     <li class="nav-item">
                         <a class="nav-link {% block nav-link-genbank %}{% endblock %}" aria-current="page"
                            href="{% url 'myapp:genbank' %}">Genbank</a>
                     </li>
+                    
+                    <!-- Lotto Link -->
                     <li class="nav-item">
                         <a class="nav-link {% block nav-link-lotto %}{% endblock %}" aria-current="page"
                            href="{% url 'news:lotto' %}">Lotto</a>
                     </li>
+                    
+                    <!-- Weather Link -->
                     <li class="nav-item">
                         <a class="nav-link {% block nav-link-weather %}{% endblock %}" aria-current="page"
                            href="{% url 'weather:index' %}">Weather</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% block nav-link-seqcontent %}{% endblock %}" aria-current="page"
-                           href="{% url 'biotools:seqcontent' %}">seqcontent</a>
-
+                    
+                    <!-- Tools Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {% block nav-link-tools %}{% endblock %}"
+                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tools</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item {% block nav-item-seqcontent %}{% endblock %}"
+                                   href="{% url 'biotools:seqcontent' %}">SeqContent</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Separated link</a></li>
+                        </ul>
                     </li>
+                    
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -72,21 +105,26 @@
 </header>
 
 
-<!-- Begin page content -->
+<!-- Page content -->
 <main class="flex-shrink-0">
     <div class="container">
-        {% block content %}
-        {% endblock %}
+        <div class="mt-3">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
 </main>
+<!-- /Page content -->
 
+<!-- Footer -->
 <footer class="footer mt-auto py-3 bg-body-tertiary">
     <div class="container">
         <span class="text-body-secondary">Place sticky footer content here.</span>
     </div>
 </footer>
+<!-- /Footer -->
 
-
+<!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

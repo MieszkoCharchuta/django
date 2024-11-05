@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0005_alter_category_options_post_date_publish'),
+        ("blog", "0005_alter_category_options_post_date_publish"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='is_public',
+            model_name="post",
+            name="is_public",
             field=models.BooleanField(default=True),
         ),
     ]

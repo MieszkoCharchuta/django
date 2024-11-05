@@ -1,15 +1,17 @@
 # blog/models.py
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField()
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
+
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -17,6 +19,7 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)

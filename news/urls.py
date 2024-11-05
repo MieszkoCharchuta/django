@@ -2,10 +2,10 @@ from django.urls import path
 
 from . import views
 
-app_name = 'news'
+app_name = "news"
 
 urlpatterns = [
-    path('', views.index_view, name='index'),
-    path('<source>', views.index_view, name='index'),
-    path('lotto/', views.lotto_view, name='lotto'),
+    path("", views.index_view, name="index"),
+    path("<source>", views.index_view, name="index"),
+    path("lotto/", views.lotto_view, name="lotto"),
 ]

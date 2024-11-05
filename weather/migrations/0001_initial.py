@@ -8,17 +8,27 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='WeatherCondition',
+            name="WeatherCondition",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('observed_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('temperature', models.CharField(max_length=10)),
-                ('pressure', models.CharField(max_length=10)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "observed_at",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("temperature", models.CharField(max_length=10)),
+                ("pressure", models.CharField(max_length=10)),
             ],
         ),
     ]

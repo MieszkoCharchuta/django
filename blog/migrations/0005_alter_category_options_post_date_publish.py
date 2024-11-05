@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0004_category_post_category'),
+        ("blog", "0004_category_post_category"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='category',
-            options={'verbose_name_plural': 'Categories'},
+            name="category",
+            options={"verbose_name_plural": "Categories"},
         ),
         migrations.AddField(
-            model_name='post',
-            name='date_publish',
+            model_name="post",
+            name="date_publish",
             field=models.DateTimeField(blank=True, null=True),
         ),
     ]

@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('weather', '0001_initial'),
+        ("weather", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='weathercondition',
-            name='area',
-            field=models.CharField(default='Unknown', max_length=10),
+            model_name="weathercondition",
+            name="area",
+            field=models.CharField(default="Unknown", max_length=10),
         ),
         migrations.AlterField(
-            model_name='weathercondition',
-            name='pressure',
-            field=models.CharField(default='Unknown', max_length=10),
+            model_name="weathercondition",
+            name="pressure",
+            field=models.CharField(default="Unknown", max_length=10),
         ),
         migrations.AlterField(
-            model_name='weathercondition',
-            name='temperature',
-            field=models.CharField(default='Unknown', max_length=10),
+            model_name="weathercondition",
+            name="temperature",
+            field=models.CharField(default="Unknown", max_length=10),
         ),
     ]
