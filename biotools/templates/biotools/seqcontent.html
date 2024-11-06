@@ -6,12 +6,46 @@
 
 
 {% block content %}
-  <h1>Tools <small>Seqcontent</small> </h1>
-    
+    <h1>Tools <small>Seqcontent</small></h1>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
     {% if results %}
-        {% for k, v in results.items %}
-        <p>{{ k }} - {{ v }}</p>
-        {% endfor %}
+        <h2>k-mere content in query sequence </h2>
+        <table>
+            <thead>
+            <tr>
+                <th>k-mere</th>
+                <th>occured #times</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for k, v in results.items %}
+                <tr>
+                    <td>{{ k }}</td>
+                    <td>{{ v }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     {% else %}
         <form method="post">
             {% csrf_token %}
