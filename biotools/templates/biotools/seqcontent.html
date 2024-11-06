@@ -4,7 +4,6 @@
 {% block nav-link-tools %}active{% endblock %}
 {% block nav-link-seqcontent %}active{% endblock %}
 
-
 {% block content %}
     <h1>Tools <small>Seqcontent</small></h1>
     <style>
@@ -28,24 +27,25 @@
         }
     </style>
     {% if results %}
-        <h2>k-mere content in query sequence of length: {{ query_length }} </h2>
+        <h2>k-mer content in query sequence of length {{ query_length }}</h2>
         <table>
             <thead>
             <tr>
-                <th>k-mere</th>
-                <th>occured #times</th>
+                <th>k-mer</th>
+                <th>Occurrences</th>
+                <th>Percentage (%)</th>
             </tr>
             </thead>
             <tbody>
-            {% for k, v in results.items %}
+            {% for word, data in results.items %}
                 <tr>
-                    <td>{{ k }}</td>
-                    <td>{{ v }}</td>
+                    <td>{{ word }}</td>
+                    <td>{{ data.count }}</td>
+                    <td>{{ data.percentage|floatformat:2 }}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
     {% else %}
         <form method="post">
             {% csrf_token %}
