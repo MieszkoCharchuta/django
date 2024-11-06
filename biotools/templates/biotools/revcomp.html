@@ -27,30 +27,23 @@
         }
     </style>
     {% if results %}
-        <h2>k-mer content in query sequence of length {{ query_length }}</h2>
         <table>
             <thead>
             <tr>
-                <th>k-mer</th>
-                <th>Occurrences</th>
-                <th>Percentage (%)</th>
+                <th>Reverse complementary sequence to query {{ query }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for word, data in results.items %}
                 <tr>
-                    <td>{{ word }}</td>
-                    <td>{{ data.count }}</td>
-                    <td>{{ data.percentage|floatformat:2 }}</td>
+                    <td>{{ results }}</td>
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
     {% else %}
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn btn-primary" type="submit">Calculate</button>
+            <button class="btn btn-primary" type="submit">Reverse Complement</button>
         </form>
     {% endif %}
 {% endblock %}
