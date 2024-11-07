@@ -1,49 +1,32 @@
 {% extends 'myapp/base.html' %}
 
-{% block page_title %}Reverse Complementary{% endblock %}
-{% block nav-link-tools %}active{% endblock %}
-{% block nav-item-revcomp %}active{% endblock %}
-
 {% block content %}
-    <h1>Tools <small>Revcomp</small></h1>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+<h1>Tools <small>Revcomp</small></h1>
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-    {% if results %}
-        <table>
-            <thead>
+{% if query_sequence and revcomp_sequence %}
+    <table>
+        <thead>
             <tr>
-                <th>Reverse complementary sequence to query {{ query }}</th>
+                <th>Header</th>
+                <th>Sequence</th>
             </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ results }}</td>
-                </tr>
-            </tbody>
-        </table>
-    {% else %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-primary" type="submit">Reverse Complement</button>
-        </form>
-    {% endif %}
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ query_header }}</td>
+                <td><pre>{{ query_sequence }}</pre></td>
+            </tr>
+            <tr>
+                <td>{{ revcomp_header }}</td>
+                <td><pre>{{ revcomp_sequence }}</pre></td>
+            </tr>
+        </tbody>
+    </table>
+{% else %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Reverse Complement</button>
+    </form>
+{% endif %}
 {% endblock %}

@@ -15,3 +15,7 @@ def count_words(seq, word_size):
         d[word]["percentage"] = (d[word]["count"] / total_occurrences) * 100
 
     return d
+
+
+def wrap_sequence(sequence, width=80):
+    return "\n".join([sequence[i : i + width] for i in range(0, len(sequence), width)])

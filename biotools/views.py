@@ -28,14 +28,25 @@ def revcomp_view(request):
     if request.method == "POST":
         form = RevCompForm(request.POST)
         if form.is_valid():
-            seq = form.cleaned_data["sequence"]
-            d = Seq(seq).reverse_complement()
+            data = form.cleaned_data["sequence"]
+            header = data["header"] or "Original Sequence"
+            seq = data["sequence"]
+            rev_comp_seq = Seq(seq).reverse_complement()
+
+            # Wrapping sequences
+            query_seq_wrapped = utils.wrap_sequence(seq)
+            rev_comp_seq_wrapped = utils.wrap_sequence(str(rev_comp_seq))
+
             return render(
                 request,
                 "biotools/revcomp.html",
-                {"results": d, "query": seq},
+                {
+                    "query_header": header,
+                    "query_sequence": query_seq_wrapped,
+                    "revcomp_header": f"Reverse Complementary of: {header}",
+                    "revcomp_sequence": rev_comp_seq_wrapped,
+                },
             )
     else:
-        form = RevCompForm()  # Utworzenie pustego formularza
-
+        form = RevCompForm()
     return render(request, "biotools/revcomp.html", {"form": form})

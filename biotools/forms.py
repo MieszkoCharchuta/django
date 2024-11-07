@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 
 
@@ -44,18 +46,17 @@ class SeqContentForm(forms.Form):
 class RevCompForm(forms.Form):
     sequence = forms.CharField(
         widget=forms.Textarea(
-            attrs={
-                "placeholder": "Enter a sequence",
-                "class": "form-control",
-            }
+            attrs={"placeholder": "Enter a sequence", "class": "form-control"}
         ),
         required=True,
-        min_length=1,
+        min_length=5,
     )
 
     def clean_sequence(self):
         sequence = self.cleaned_data["sequence"]
-        for letter in sequence:
-            if letter not in {"A", "C", "G", "T", "a", "c", "g", "t"}:
-                raise forms.ValidationError("Sequence must be a DNA sequence")
-        return sequence.upper()
+        header = ""
+        if sequence.startswith(">"):
+            header, sequence = sequence.split("\n", 1)
+            header = header.strip()
+        sequence = re.sub(r"\s+", "", sequence.upper())
+        return {"header": header, "sequence": sequence}
