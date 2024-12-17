@@ -3,8 +3,8 @@
 {% block content %}
 <h1>Tools <small>Revcomp</small></h1>
 
-{% if query_sequence and revcomp_sequence %}
-    <table>
+{% if query_sequence and result_sequence %}
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Header</th>
@@ -17,8 +17,8 @@
                 <td><pre>{{ query_sequence }}</pre></td>
             </tr>
             <tr>
-                <td>{{ revcomp_header }}</td>
-                <td><pre>{{ revcomp_sequence }}</pre></td>
+                <td>{{ result_header }}</td>
+                <td><pre>{{ result_sequence }}</pre></td>
             </tr>
         </tbody>
     </table>
@@ -26,7 +26,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-primary" type="submit">Reverse Complement</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 {% endif %}
 {% endblock %}

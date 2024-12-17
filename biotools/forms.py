@@ -51,6 +51,15 @@ class RevCompForm(forms.Form):
         required=True,
         min_length=5,
     )
+    method = forms.ChoiceField(
+        choices=[
+            ("reverse", "Reverse"),
+            ("complement", "Complement"),
+            ("reverse_complement", "Reverse Complement"),
+        ],
+        widget=forms.Select(attrs={"class": "form-control"}),
+        required=True,
+    )
 
     def clean_sequence(self):
         sequence = self.cleaned_data["sequence"]
@@ -60,3 +69,63 @@ class RevCompForm(forms.Form):
             header = header.strip()
         sequence = re.sub(r"\s+", "", sequence.upper())
         return {"header": header, "sequence": sequence}
+
+from django import forms
+
+class RandomDNAForm(forms.Form):
+    length = forms.IntegerField(
+        required=True,
+        min_value=20,
+        max_value=10000,
+        widget=forms.NumberInput(
+            attrs={"class": "form-control", "placeholder": "Enter length (20-10000)"}
+        ),
+    )
+    prob_A = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=1,
+        initial=0.25,
+        widget=forms.NumberInput(
+            attrs={"class": "form-control", "placeholder": "Probability of A"}
+        ),
+    )
+    prob_T = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=1,
+        initial=0.25,
+        widget=forms.NumberInput(
+            attrs={"class": "form-control", "placeholder": "Probability of T"}
+        ),
+    )
+    prob_C = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=1,
+        initial=0.25,
+        widget=forms.NumberInput(
+            attrs={"class": "form-control", "placeholder": "Probability of C"}
+        ),
+    )
+    prob_G = forms.FloatField(
+        required=False,
+        min_value=0,
+        max_value=1,
+        initial=0.25,
+        widget=forms.NumberInput(
+            attrs={"class": "form-control", "placeholder": "Probability of G"}
+        ),
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        probs = [
+            cleaned_data.get("prob_A", 0.25),
+            cleaned_data.get("prob_T", 0.25),
+            cleaned_data.get("prob_C", 0.25),
+            cleaned_data.get("prob_G", 0.25),
+        ]
+        if sum(probs) != 1:
+            raise forms.ValidationError("The sum of probabilities must equal 1.")
+        return cleaned_data
